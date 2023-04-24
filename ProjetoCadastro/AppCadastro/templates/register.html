@@ -1,18 +1,47 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Cadastro</title>
 </head>
 <body>
-    <h2>Cadastro!</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Register">
-</form>
+    <aside class="menu">
+        <div class="
+        menu-content">
+            <h1>
+                Cadastro!
+            </h1>
+        </div>
+    </aside>
+    <h2>Space</h2>
+
+    <div class="main-content container">
+        <form action="{% url 'AppCadastro:create' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-content form-content-grid">
+              {% for field in form %}
+                <div class="form-group">
+                  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  {{field}}
+                  
+                  {% if field.help_text %}
+                    <p class="help-text">{{ field.help_text }}</p>
+                  {% endif %}
+
+                  {{ field.errors }}
+                </div>
+              {% endfor %}
+            </div>
+
+          <div class="form-content">
+            <button type="submit">Enviar</button>
+          </div>
+        </form>
+    </div>
     
 </body>
 </html>

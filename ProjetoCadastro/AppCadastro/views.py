@@ -1,14 +1,21 @@
+from django.http import Http404
 from django.shortcuts import redirect, render
 
-from .forms import UserForm
+from .forms import RegisterForm
 
 
 def register(request):
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        form = UserForm()
+    register_form_data = request.session.get('register_form_data', None)
+    form = RegisterForm(register_form_data)
     return render(request, 'register.html', {'form': form})
+
+
+def register_create(request):
+    if not request.POST:
+        raise Http404()
+
+    POST = request.POST
+    request.session['register_form_data'] = POST
+    form = RegisterForm(POST)
+
+    return redirect('AppCadastro:register')

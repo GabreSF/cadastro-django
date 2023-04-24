@@ -1,6 +1,5 @@
-from AppCadastro.views import register
-from django.urls import path
+from django.urls import include, path
 
 urlpatterns = [
-    path('', register, name='register'),
+    path('', include('AppCadastro.urls')),
 ]
