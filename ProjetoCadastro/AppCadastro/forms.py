@@ -31,3 +31,21 @@ class RegisterForm(forms.ModelForm):
             raise ValidationError({
                 'password': 'Senhas não são iguais'
             })
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email', '')
+        exists = User.objects.filter(email=email).exists()
+
+        if exists:
+            raise ValidationError(
+                'Usuário com este e-mail já esta em uso', code='invalid'
+            )
+
+        return email
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(
+        widget=forms.PasswordInput()
+    )

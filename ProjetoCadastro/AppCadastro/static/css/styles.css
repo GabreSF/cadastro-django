@@ -58,6 +58,14 @@
     color: rgb(255, 255, 255);
     text-align: center;
 }
+
+.plaintext-button {
+    display: inline;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: red;
+}
   
 @media (max-width: 600px) {
     .menu-content,
